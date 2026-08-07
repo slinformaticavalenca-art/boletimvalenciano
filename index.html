@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Boletim Valenciano — em breve, o maior e melhor classificado de Valença RJ, com site e aplicativo.">
+  <meta name="theme-color" content="#0b4fbd">
+  <title>Boletim Valenciano | Em breve</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #10203a;
+      background: #f5f8fc;
+      min-height: 100vh;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(30, 177, 80, .22), transparent 28%),
+        radial-gradient(circle at 10% 85%, rgba(255, 193, 7, .20), transparent 30%),
+        linear-gradient(135deg, #061a3a 0%, #0b4fbd 55%, #087b45 100%);
+      padding: 40px 20px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      top: -180px;
+      right: -120px;
+    }
+
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      bottom: -150px;
+      left: -100px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1050px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      text-align: center;
+      color: #fff;
+      padding: 30px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 9px 18px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(46px, 9vw, 92px);
+      line-height: .95;
+      font-weight: 900;
+      letter-spacing: -4px;
+      margin-bottom: 18px;
+      text-shadow: 0 5px 25px rgba(0,0,0,.20);
+    }
+
+    h1 span {
+      color: #ffd21c;
+    }
+
+    .domain {
+      font-size: clamp(17px, 3vw, 25px);
+      font-weight: 700;
+      margin-bottom: 30px;
+      word-break: break-word;
+    }
+
+    .headline {
+      max-width: 850px;
+      margin: 0 auto 18px;
+      font-size: clamp(25px, 5vw, 44px);
+      line-height: 1.12;
+      font-weight: 800;
+    }
+
+    .headline span {
+      color: #ffd21c;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 auto 35px;
+      font-size: clamp(17px, 2.5vw, 21px);
+      line-height: 1.6;
+      color: rgba(255,255,255,.90);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      max-width: 950px;
+      margin: 0 auto 35px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 16px;
+      padding: 18px 10px;
+      backdrop-filter: blur(8px);
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .notice {
+      display: inline-block;
+      max-width: 850px;
+      padding: 17px 24px;
+      border-radius: 16px;
+      background: #fff;
+      color: #10203a;
+      box-shadow: 0 12px 35px rgba(0,0,0,.18);
+      font-size: 17px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .notice b {
+      color: #0b4fbd;
+    }
+
+    .section {
+      padding: 70px 20px;
+      background: #fff;
+    }
+
+    .section-inner {
+      max-width: 1050px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .section h2 {
+      color: #0b4fbd;
+      font-size: clamp(28px, 5vw, 42px);
+      margin-bottom: 15px;
+    }
+
+    .section-intro {
+      max-width: 750px;
+      margin: 0 auto 35px;
+      color: #536174;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      text-align: left;
+    }
+
+    .info-card {
+      padding: 25px;
+      border: 1px solid #e1e8f2;
+      border-radius: 18px;
+      background: #f8faff;
+      box-shadow: 0 7px 22px rgba(16,32,58,.06);
+    }
+
+    .info-card h3 {
+      margin-bottom: 10px;
+      color: #10203a;
+      font-size: 20px;
+    }
+
+    .info-card p {
+      color: #5b687a;
+      line-height: 1.55;
+    }
+
+    footer {
+      padding: 28px 20px;
+      text-align: center;
+      background: #061a3a;
+      color: rgba(255,255,255,.75);
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: #fff;
+    }
+
+    @media (max-width: 800px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feature {
+        padding: 15px 8px;
+      }
+
+      .notice {
+        padding: 15px 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="hero">
+    <div class="container">
+      <div class="card">
+
+        <div class="badge">📍 VALENÇA • RIO DE JANEIRO</div>
+
+        <h1>Boletim <span>Valenciano</span></h1>
+
+        <div class="domain">www.boletimvalenciano.com.br</div>
+
+        <div class="headline">
+          O maior e melhor <span>classificado de Valença RJ</span> está chegando!
+        </div>
+
+        <p class="subtitle">
+          Um só lugar para encontrar lojas, serviços, profissionais, restaurantes,
+          pet shops, telefones, endereços, repartições públicas e muito mais.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <div class="icon">🏪</div>
+            <strong>Lojas e Comércio</strong>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🐶</div>
+            <strong>Pet Shops</strong>
+          </div>
+
+          <div class="feature">
+            <div class="icon">📞</div>
+            <strong>Telefones e Contatos</strong>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🏛️</div>
+            <strong>Serviços Públicos</strong>
+          </div>
+
+          <div class="feature">
+            <div class="icon">📢</div>
+            <strong>Denúncias e Problemas</strong>
+          </div>
+        </div>
+
+        <div class="notice">
+          🚀 <b>EM BREVE!</b> Nosso site e aplicativo estarão disponíveis.
+          <br>
+          <span>Conectando moradores, comércio e serviços de toda Valença.</span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2>Tudo em um só lugar</h2>
+
+      <p class="section-intro">
+        O Boletim Valenciano está sendo desenvolvido para facilitar o dia a dia
+        de quem mora em Valença e fortalecer o comércio local.
+      </p>
+
+      <div class="cards">
+
+        <div class="info-card">
+          <h3>📍 Classificados locais</h3>
+          <p>
+            Encontre empresas, lojas, profissionais e serviços com informações
+            como endereço, telefone e formas de contato.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>📱 Site + Aplicativo</h3>
+          <p>
+            A proposta é levar o guia da cidade para o computador e também para
+            o celular, de forma simples e rápida.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>📢 Sua voz na cidade</h3>
+          <p>
+            Uma área dedicada ao registro de problemas e situações dos bairros,
+            ajudando a dar visibilidade às demandas da população.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <strong>Boletim Valenciano</strong> • Valença RJ
+    <br><br>
+    www.boletimvalenciano.com.br
+  </footer>
+
+</body>
+</html>
