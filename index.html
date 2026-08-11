@@ -171,6 +171,101 @@
       color: #0b4fbd;
     }
 
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .action-btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+
+    .action-primary {
+      background: #ffd21c;
+      color: #10203a;
+    }
+
+    .action-secondary {
+      background: #fff;
+      color: #0b4fbd;
+    }
+
+    .form-section {
+      display: none;
+      margin-top: 25px;
+      padding: 25px;
+      border-radius: 18px;
+      background: #fff;
+      color: #10203a;
+      text-align: left;
+      box-shadow: 0 12px 35px rgba(0,0,0,.18);
+    }
+
+    .form-section:target {
+      display: block;
+    }
+
+    .form-section h3 {
+      margin-bottom: 8px;
+      color: #0b4fbd;
+      font-size: 24px;
+    }
+
+    .form-section p {
+      margin-bottom: 18px;
+      color: #536174;
+      line-height: 1.5;
+    }
+
+    .company-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .company-form label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .company-form input,
+    .company-form select {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #ccd6e4;
+      border-radius: 10px;
+      font: inherit;
+    }
+
+    .company-form button {
+      border: 0;
+      cursor: pointer;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: #0b4fbd;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: #68778a;
+    }
+
     .section {
       padding: 70px 20px;
       background: #fff;
@@ -263,8 +358,28 @@
     }
   </style>
   <!-- Umami Analytics: estatísticas privadas do Boletim Valenciano -->
-  <script defer src="https://cloud.umami.is/script.js"
-          data-website-id="47eb1e2a-888d-433d-a2ba-9f995ca8b700"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const key = 'boletim_analytics_excluded';
+
+      // Ativação única no seu celular/navegador:
+      // https://www.boletimvalenciano.com.br/?configurar_analytics=meu_celular
+      if (params.get('configurar_analytics') === 'meu_celular') {
+        localStorage.setItem(key, '1');
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      // Só carrega o Umami se este navegador NÃO estiver marcado como o seu.
+      if (localStorage.getItem(key) !== '1') {
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = 'https://cloud.umami.is/script.js';
+        script.setAttribute('data-website-id', '47eb1e2a-888d-433d-a2ba-9f995ca8b700');
+        document.head.appendChild(script);
+      }
+    })();
+  </script>
 </head>
 
 <body>
@@ -319,6 +434,70 @@
           🚀 <b>EM BREVE!</b> Nosso site e aplicativo estarão disponíveis.
           <br>
           <span>Conectando moradores, comércio e serviços de toda Valença.</span>
+        </div>
+
+        <div class="actions">
+          <a class="action-btn action-primary"
+             href="mailto:slinformaticavalenca@gmail.com?subject=Contato%20-%20Boletim%20Valenciano">
+            📧 Entre em contato
+          </a>
+          <a class="action-btn action-secondary" href="#cadastre-sua-empresa">
+            🏢 Cadastre sua empresa
+          </a>
+        </div>
+
+        <div class="form-section" id="cadastre-sua-empresa">
+          <h3>🏢 Cadastre sua empresa</h3>
+          <p>
+            Preencha os dados abaixo para solicitar o cadastro da sua empresa no
+            Boletim Valenciano. Os campos com * são obrigatórios.
+          </p>
+
+          <form class="company-form"
+                action="https://formsubmit.co/slinformaticavalenca@gmail.com"
+                method="POST">
+            <input type="hidden" name="_subject"
+                   value="Novo cadastro de empresa - Boletim Valenciano">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next"
+                   value="https://www.boletimvalenciano.com.br/">
+
+            <label for="empresa">Nome da empresa *</label>
+            <input id="empresa" name="Nome da empresa" type="text"
+                   placeholder="Nome da empresa" required>
+
+            <label for="whatsapp">WhatsApp</label>
+            <input id="whatsapp" name="WhatsApp" type="tel"
+                   placeholder="(24) 99999-9999">
+
+            <label for="instagram">Instagram</label>
+            <input id="instagram" name="Instagram" type="text"
+                   placeholder="@suaempresa">
+
+            <label for="telefone">Telefone</label>
+            <input id="telefone" name="Telefone" type="tel"
+                   placeholder="(24) 3333-3333">
+
+            <label for="endereco">Endereço *</label>
+            <input id="endereco" name="Endereço" type="text"
+                   placeholder="Rua, número, bairro" required>
+
+            <label for="horario">Horário de funcionamento</label>
+            <input id="horario" name="Horário de funcionamento" type="text"
+                   placeholder="Ex.: Seg a Sex, 8h às 18h">
+
+            <label for="categoria">Categoria da empresa</label>
+            <input id="categoria" name="Categoria" type="text"
+                   placeholder="Ex.: Restaurante, loja, serviço...">
+
+            <button type="submit">📨 Enviar cadastro</button>
+
+            <div class="form-note">
+              Ao enviar, os dados serão encaminhados para o e-mail de contato
+              do Boletim Valenciano.
+            </div>
+          </form>
         </div>
 
       </div>
